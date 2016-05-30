@@ -57,4 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :test do
   gem 'rspec-rails', '3.1.0'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
 end

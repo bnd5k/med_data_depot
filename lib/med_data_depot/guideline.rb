@@ -4,6 +4,18 @@ module MedDataDepot
   module Guideline
     class << self
 
+      def list
+        List.new(
+          ::Guideline
+        )
+      end
+
+      def find
+        FindGuideline.new(
+          ::Guideline
+        )
+      end
+
       def import_guideline
         ImportGuideline.new(
           ::Guideline,

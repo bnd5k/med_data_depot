@@ -10,6 +10,7 @@ gem 'font-awesome-rails', '4.5.0.1'
 
 gem 'nokogiri', '1.6.7.2'
 
+gem "active_model_serializers", '0.10.0'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

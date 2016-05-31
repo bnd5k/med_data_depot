@@ -1,9 +1,10 @@
-require 'med_data_depot/web_scraper/mock_scraper'
-require 'med_data_depot/web_scraper/scraper'
+require 'med_data_depot/web_scraper/scraper_factory'
 
-if ENV["RAILS_ENV"] == 'test'
-  MedDataDepot::Scraper = MedDataDepot::WebScraper::MockScraper.new
-else
-  MedDataDepot::Scraper = MedDataDepot::WebScraper::Scraper.new(WebScrapingEvent)
+Rails.configuration.after_initialize do
+  if ENV["RAILS_ENV"] == 'test'
+    MedDataDepot::Scraper = MedDataDepot::WebScraper::Factory.mock_scraper
+  else
+    MedDataDepot::Scraper = MedDataDepot::WebScraper::Factory.scraper
+  end
+
 end
-

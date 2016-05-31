@@ -2,6 +2,7 @@ module MedDataDepot
   module Guideline
     class ImportGuideline
 
+      GUIDELINE_TITLE_LOCATION = '.content_title'
       RECOMMENDATION_LOCATION = '#ctl00_ContentPlaceHolder1_dlXML_ctl03_rptField_ctl00_divOuter'
       #^ we antipate the location changing eventually. Wrapping it in constant allows us to
       #set & update location without worrying about breaking tests
@@ -14,9 +15,12 @@ module MedDataDepot
       def call(guideline_id)
         guideline = guideline_model.find_by_id(guideline_id)
         if guideline
-          recommendation = scraper.search_for_content(guideline.url, RECOMMENDATION_LOCATION)
+          title, recommendation = scraper.search_for_title_and_content(
+            guideline.url,
+            GUIDELINE_TITLE_LOCATION,
+            RECOMMENDATION_LOCATION)
 
-          guideline.update!(recommendation: recommendation)
+          guideline.update!(title: title, recommendation: recommendation)
 
         end
 

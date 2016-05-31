@@ -9,10 +9,37 @@ module MedDataDepot
         @web_scraping_events_model = web_scraping_events_model
       end
 
-      def search_for_content(url, location)
+      def search_for_title_and_content(url, title_location, content_location)
         url_to_scrape = open(url)
-        doc = Nokogiri::HTML(url_to_scrape)
-        found_content = doc.search(location)
+        document = Nokogiri::HTML(url_to_scrape)
+
+        title = find_title(url, title_location, document)
+        content = find_content(url, location, document)
+
+        return title, content
+      end
+
+      private
+
+      attr_reader :web_scraping_events_model
+
+      def find_title(url, title_location, document)
+        found_title = document.search(title_location).children.first
+
+        if !found_title.empty?
+          found_title.text
+        else
+          web_scraping_events_model.create!(
+            event_type: web_scraping_events_model::EVENT_TYPES[:failure],
+            url: url,
+            location: title_location
+          )
+          nil
+        end
+      end
+
+      def find_content(url, location, document)
+        found_content = document.search(location)
 
         if !found_content.empty?
           found_content.to_html
@@ -25,10 +52,6 @@ module MedDataDepot
           nil
         end
       end
-
-      private
-
-      attr_reader :web_scraping_events_model
 
     end
   end

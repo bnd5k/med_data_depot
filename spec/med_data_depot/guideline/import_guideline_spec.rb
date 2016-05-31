@@ -1,6 +1,6 @@
-require 'med_data_depot/guideline/import_guideline_recommendation'
+require 'med_data_depot/guideline/import_guideline'
 
-describe MedDataDepot::Guideline::ImportGuidelineRecommendation do
+describe MedDataDepot::Guideline::ImportGuideline do
   let(:guideline_model) { double(:guideline_model) }
   let(:guideline_record) { double(:guideline_record, id: 123, url: 'www.barf.com') }
   let(:scraper) { double(:scraper) }

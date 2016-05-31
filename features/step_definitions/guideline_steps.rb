@@ -8,13 +8,15 @@ When(/^I import the recommendation$/) do
 end
 
 Then(/^the guideline contains data for the recommendation$/) do
-  recommendation = MedDataDepot::Scraper.search_for_content(
+  title, recommendation = MedDataDepot::Scraper.search_for_title_and_content(
     @incomplete_guideline,
+    MedDataDepot::Guideline.import_guideline.class::GUIDELINE_TITLE_LOCATION,
     MedDataDepot::Guideline.import_guideline.class::RECOMMENDATION_LOCATION
   )
 
   @incomplete_guideline.reload
 
+  expect(@incomplete_guideline.title).to eq title
   expect(@incomplete_guideline.recommendation).to eq recommendation
 
   #fixme: speed up tests by just verifying we called expected method. e.g.

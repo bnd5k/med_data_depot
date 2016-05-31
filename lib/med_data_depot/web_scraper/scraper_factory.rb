@@ -1,5 +1,6 @@
 require 'med_data_depot/web_scraper/mock_scraper'
 require 'med_data_depot/web_scraper/scraper'
+require './app/models/web_scraping_event'
 
 module MedDataDepot
   module WebScraper

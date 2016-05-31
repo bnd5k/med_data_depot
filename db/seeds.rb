@@ -1,7 +1,20 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+urls = [
+  "http://guideline.gov/content.aspx?f=rss&id=46236",
+  "http://guideline.gov/content.aspx?f=rss&id=37959",
+  "http://guideline.gov/content.aspx?f=rss&id=39240",
+  "http://guideline.gov/content.aspx?f=rss&id=36059",
+  "http://guideline.gov/content.aspx?f=rss&id=36054",
+  "http://guideline.gov/content.aspx?f=rss&id=49538",
+  "http://guideline.gov/content.aspx?f=rss&id=48058"
+]
+
+urls.each do |guideline_url|
+
+  guideline = Guideline.where(url: guideline_url).first_or_create!
+
+  MedDataDepot::Guideline.import_guideline.call(guideline.id)
+  #It's inifficient to create the record and then update it, but this
+  #process mimics apps behavior, where the import would be done off cycle
+
+end

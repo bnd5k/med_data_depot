@@ -4,13 +4,13 @@ Given(/^an incomplete guideline$/) do
 end
 
 When(/^I import the recommendation$/) do
-  MedDataDepot::Guideline.import_guideline_recommendation.call(@incomplete_guideline.id)
+  MedDataDepot::Guideline.import_guideline.call(@incomplete_guideline.id)
 end
 
 Then(/^the guideline contains data for the recommendation$/) do
   recommendation = MedDataDepot::Scraper.search_for_content(
     @incomplete_guideline,
-    MedDataDepot::Guideline.import_guideline_recommendation.class::RECOMMENDATION_LOCATION
+    MedDataDepot::Guideline.import_guideline.class::RECOMMENDATION_LOCATION
   )
 
   @incomplete_guideline.reload

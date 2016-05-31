@@ -1,6 +1,6 @@
 module MedDataDepot
   module Guideline
-    class ImportGuidelineRecommendation
+    class ImportGuideline
 
       RECOMMENDATION_LOCATION = '#ctl00_ContentPlaceHolder1_dlXML_ctl03_rptField_ctl00_divOuter'
       #^ we antipate the location changing eventually. Wrapping it in constant allows us to

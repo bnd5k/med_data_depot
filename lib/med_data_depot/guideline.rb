@@ -1,11 +1,11 @@
-require 'med_data_depot/guideline/import_guideline_recommendation'
+require 'med_data_depot/guideline/import_guideline'
 
 module MedDataDepot
   module Guideline
     class << self
 
-      def import_guideline_recommendation
-        ImportGuidelineRecommendation.new(
+      def import_guideline
+        ImportGuideline.new(
           ::Guideline,
           MedDataDepot::Scraper
         )

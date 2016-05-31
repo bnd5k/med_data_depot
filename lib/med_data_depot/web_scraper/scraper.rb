@@ -10,10 +10,11 @@ module MedDataDepot
       end
 
       def search_for_content(url, location)
-        doc = Nokogiri::HTML(open(url))
+        url_to_scrape = open(url)
+        doc = Nokogiri::HTML(url_to_scrape)
         found_content = doc.search(location)
 
-        if found_content
+        if !found_content.empty?
           found_content.to_html
         else
           web_scraping_events_model.create!(

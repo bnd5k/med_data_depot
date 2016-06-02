@@ -1,12 +1,12 @@
 # README
 
-This is an app for extracting data from medical guidelines.  This guidelines are 
-publically available at [www.guideline.gov](http://www.guideline.gov)
+This is an app for extracting data from medical guidelines.  This guidelines are
+publically available at [www.guideline.gov](http://www.guideline.gov).
 
 Medical Recommendation have a lot of important information in them
 but this app focuses on the Recommendations associated with a given guideline.
 To browse all guidelines, head [here](http://www.guideline.gov/browse/by-topic.aspx).
-For an example of a medical guideline, navigate [here](http://www.guideline.gov/content.aspx?id=34838)
+For an example of a medical guideline, navigate [here](http://www.guideline.gov/content.aspx?id=34838).
 
 ### Data Extraction
 
@@ -21,24 +21,27 @@ forced to inspect the title.  Titles for Guideline Summaries always look like th
 
 ```
 
-  "Guideline Summary: A.S.P.E.N. clinical guidelines: nutrition support of adult patients with hyperglycemia. [American Society for Parenteral and Enteral Nutrition]"
+"Guideline Summary: A.S.P.E.N. clinical guidelines: nutrition support of adult patients with hyperglycemia. [American Society for Parenteral and Enteral Nutrition]"
 
 ```
 
-If you want to grab all the summaries, there's a seed for that, see "db/seeds/seed_all_guidelines." Running this seed could take a while, as there are a few thousand 
-RSS items available (Guideline Summaries constituted roughly 2000 entries as of June 2016.).
+If you want to grab all the summaries, there's a seed for that
+("db/seeds/seed_all_guidelines.") Running this seed could take a while, as 
+there are a few thousand RSS items available (Guideline Summaries constituted 
+roughly 2000 entries as of June 2016.).
 
 
 ## API Endpoints
 
 The this is a Rails app with an API. The default way to interact with MedDataDepot is via
-API. It's not "API only" because Admins will have the ability to interact with it
+the API. It's not "API only" because Admins will have the ability to interact with it
 MedDataDepot in their browser.
 
-Once youv'e go the server running, you can hit the endpoint like this, via command line.
+Once you've go the server running, you can hit the endpoint like this, via command line.
 
 ```
 curl -H "accept: application/vnd.med-data-depot-v1+json" http://localhost:3000/api/guidelines| python -m json.tool  
+
 #or
 
 curl -s http://localhost:3000/guidelines | python -m json.tool
@@ -61,3 +64,10 @@ Use the following commands to run all tests:
  bundle exec cucumber
 ```
 
+## Caveat Emptor
+
+This app is currently under development.  Things may me changing quickly.
+
+
+##Todo
+Pagination

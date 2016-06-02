@@ -13,7 +13,6 @@ def validate_list(data, of: nil, count: nil)
   end
 end
 
-def get_resource(resource, params={})
-  get("/#{resource.pluralize.downcase.tr(' ', '-')}", params)
-
+def get_api_resource(resource, params={})
+  get("/api/#{resource.pluralize.downcase.tr(' ', '-')}", params)
 end

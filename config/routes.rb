@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :guidelines
+
+  namespace :api, defaults: { format: 'json' } do
+    constraints MedDataDepot::Constraints::APIVersion.new(1) do
+      scope :module => :v1 do
+        resources :guidelines
+      end
+    end
+  end
+
 end

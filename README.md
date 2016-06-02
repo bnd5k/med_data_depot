@@ -38,8 +38,15 @@ MedDataDepot in their browser.
 Once youv'e go the server running, you can hit the endpoint like this, via command line.
 
 ```
- curl -s http://localhost:3000/guidelines | python -m json.tool
+curl -H "accept: application/vnd.med-data-depot-v1+json" http://localhost:3000/api/guidelines| python -m json.tool  
+#or
+
+curl -s http://localhost:3000/guidelines | python -m json.tool
+
 ```
+
+If you don't specify a version in the header, the app  will default v1 of the API.
+
 
 Note that this API does not currently require authentication.  It probably will at some
 point, but for now I'm keeping things simple.
@@ -53,3 +60,4 @@ Use the following commands to run all tests:
  bundle exec rspec
  bundle exec cucumber
 ```
+

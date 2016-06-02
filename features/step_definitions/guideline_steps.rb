@@ -31,13 +31,13 @@ end
 
 
 When(/^the client requests a list of (.*?)s?$/) do |type|
-  get_resource(type)
+  get_api_resource(type)
 end
 
 When(/^the client requestes the ([^"]*) containing the URL "([^"]*)"$/) do |type, url|
   guideline = Guideline.find_by_url(url)
 
-  get_resource(type, id: guideline.id)
+  get_api_resource(type, id: guideline.id)
 end
 
 ############ then

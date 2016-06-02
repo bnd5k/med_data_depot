@@ -70,4 +70,7 @@ This app is currently under development.  Things may me changing quickly.
 
 
 ##Todo
-Pagination
+* Pagination
+* Caching
+* Throttlling
+* Authentication

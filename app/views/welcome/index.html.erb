@@ -1,0 +1,42 @@
+<section id="welcome">
+  <div class="container">
+    <h1> Overview  </h1>
+
+    <p>
+    The goal of this app is to make medical data, specifically medical guidelines, easily accessible.
+
+    </p>
+    <p>
+    Medical Guidelines are a wealth of information for doctors, 
+    however, many doctors don't know they exist and they're often difficult to find.
+    </p>
+    </p>
+
+    <p>
+    This app provides an API that lists the currently available medical guidelines. 
+    </p>
+
+    <p>
+    The easiest way to view this is via command line.  If you want to see a list of all guidelines, run the following command in your terminal.
+    </p>
+
+
+    <div class="code">
+    curl https://med-data-depot.herokuapp.com/api/guidelines| python -m json.tool  
+    </div>
+
+    <p>
+    You can also view a single medical guedeline excerpt. 
+    </p>
+
+    <div class="code">
+    curl https://med-data-depot.herokuapp.com/api/guidelines/7 | python -m json.tool  
+    </div>
+
+    <p>
+    If you're not a command line fan, then tou can also paste the URLS  into a new browser tab.
+    </p>
+
+  </div>
+  <!-- /container -->
+</section>

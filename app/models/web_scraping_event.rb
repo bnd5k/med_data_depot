@@ -1,5 +1,5 @@
 class WebScrapingEvent < ApplicationRecord
 
-  EVENT_TYPES = { failure: 1, success: 2  }
+  EVENT_TYPES = { not_found: 1, timeout: 2  }
 
 end

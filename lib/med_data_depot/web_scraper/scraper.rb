@@ -10,13 +10,24 @@ module MedDataDepot
       end
 
       def search_for_title_and_content(url, title_location, content_location)
-        url_to_scrape = open(url)
-        document = Nokogiri::HTML(url_to_scrape)
+        begin
+          url_to_scrape = open(url)
+          document = Nokogiri::HTML(url_to_scrape)
 
-        title = find_title(url, title_location, document)
-        content = find_content(url, content_location, document)
+          title = find_title(url, title_location, document)
+          content = find_content(url, content_location, document)
 
-        return title, content
+          return title, content
+
+        rescue ::Net::OpenTimeout => e
+          web_scraping_events_model.create!(
+            event_type: web_scraping_events_model::EVENT_TYPES[:timeout],
+            url: url,
+          )
+
+          return nil
+
+        end
       end
 
       private
@@ -35,7 +46,7 @@ module MedDataDepot
           found_title.text
         else
           web_scraping_events_model.create!(
-            event_type: web_scraping_events_model::EVENT_TYPES[:failure],
+            event_type: web_scraping_events_model::EVENT_TYPES[:not_found],
             url: url,
             location: title_location
           )
@@ -47,7 +58,8 @@ module MedDataDepot
         found_content = document.search(location)
 
         if !found_content.empty?
-          found_content.to_html
+          raw_content = found_content.to_html
+          stripped_content = raw_content.gsub(/>\s+</, "><")
         else
           web_scraping_events_model.create!(
             event_type: web_scraping_events_model::EVENT_TYPES[:failure],

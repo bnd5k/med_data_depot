@@ -20,7 +20,7 @@ module MedDataDepot
             GUIDELINE_TITLE_LOCATION,
             RECOMMENDATION_LOCATION)
 
-          guideline.update!(title: title, recommendation: recommendation)
+          guideline.update!(title: title, recommendation: recommendation) if title && guideline
 
         end
 

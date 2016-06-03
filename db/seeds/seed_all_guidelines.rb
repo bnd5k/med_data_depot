@@ -18,7 +18,10 @@ class SeedAllGuidelines
 
         guideline = Guideline.where(url: item.link).first_or_create!
 
-        MedDataDepot::Guideline.import_guideline.call(guideline.id)
+        if guideline.recommendation.nil? && guideline.title.nil?
+
+          MedDataDepot::Guideline.import_guideline.call(guideline.id)
+        end
       end
     end
   end

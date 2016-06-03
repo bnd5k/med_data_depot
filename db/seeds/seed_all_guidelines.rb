@@ -16,7 +16,9 @@ class SeedAllGuidelines
         # No easy way to determine whether the feed item is a guideline. :(
         puts item.title
 
-        Guideline.where(url: item.link).first_or_create!
+        guideline = Guideline.where(url: item.link).first_or_create!
+
+        MedDataDepot::Guideline.import_guideline.call(guideline.id)
       end
     end
   end

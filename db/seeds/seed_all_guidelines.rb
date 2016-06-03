@@ -14,7 +14,7 @@ class SeedAllGuidelines
     items.each do |item|
       if item.title && item.title.start_with?("Guideline Summary:")
         # No easy way to determine whether the feed item is a guideline. :(
-        puts item.title
+        p item.title
 
         guideline = Guideline.where(url: item.link).first_or_create!
 
@@ -22,6 +22,9 @@ class SeedAllGuidelines
 
           MedDataDepot::Guideline.import_guideline.call(guideline.id)
         end
+      rescue Net::OpenTimeout => e
+        p "Couldn't parse guideline: #{guideline}"
+       next 
       end
     end
   end

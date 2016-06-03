@@ -3,8 +3,8 @@
 This is an app for extracting data from medical guidelines.  This guidelines are
 publically available at [www.guideline.gov](http://www.guideline.gov).
 
-Medical Recommendation have a lot of important information in them
-but this app focuses on the Recommendations associated with a given guideline.
+Medical guidelines have a lot of important information in them
+but this app focuses on the recommendations associated with a given guideline.
 To browse all guidelines, head [here](http://www.guideline.gov/browse/by-topic.aspx).
 For an example of a medical guideline, navigate [here](http://www.guideline.gov/content.aspx?id=34838).
 
@@ -40,15 +40,17 @@ MedDataDepot in their browser.
 Once you've go the server running, you can hit the endpoint like this, via command line.
 
 ```
-curl -H "accept: application/vnd.med-data-depot-v1+json" http://localhost:3000/api/guidelines| python -m json.tool  
+curl -H "accept: application/vnd.med-data-depot-v1+json" http://localhost:3000/api/guidelines | python -m json.tool  
 
-#or
+```
+If you don't specify a version in the header, the app  will default v1 of the API. So the
+following command will also work.
 
-curl -s http://localhost:3000/guidelines | python -m json.tool
+```
+curl http://localhost:3000/api/guidelines | python -m json.tool
 
 ```
 
-If you don't specify a version in the header, the app  will default v1 of the API.
 
 
 Note that this API does not currently require authentication.  It probably will at some
@@ -70,7 +72,6 @@ This app is currently under development.  Things may me changing quickly.
 
 
 ##Todo
-* Pagination
 * Caching
 * Throttlling
 * Authentication

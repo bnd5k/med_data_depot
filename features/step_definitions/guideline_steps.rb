@@ -1,5 +1,12 @@
 ############# Helpers
 
+def validate_guideline_summary(data)
+  expect(data["url"]).to be_a_kind_of(String)
+  expect(data["title"]).to be_a_kind_of(String)
+end
+
+require 'pry'
+
 def validate_guideline(data)
   expect(data["url"]).to be_a_kind_of(String)
   expect(data["title"]).to be_a_kind_of(String)
@@ -31,13 +38,13 @@ end
 
 
 When(/^the client requests a list of (.*?)s?$/) do |type|
-  get_api_resource(type)
+  get_resource(type)
 end
 
 When(/^the client requestes the ([^"]*) containing the URL "([^"]*)"$/) do |type, url|
   guideline = Guideline.find_by_url(url)
 
-  get_api_resource(type, id: guideline.id)
+  get_single_resource(type, guideline.id)
 end
 
 ############ then
@@ -63,18 +70,31 @@ end
 
 Then(/^the response contains (#{CAPTURE_INT}) (.*?)s?$/) do |count, type|
   response_body  = MultiJson.load(last_response.body)
-  validate_list(response_body["data"], of: type, count: count)
+
+  if count == 1
+    validate_element(response_body["data"], of: type, count: count)
+  else 
+    validate_list(response_body["data"], of: type, count: count)
+  end
 end
 
 
-Then(/(#{CAPTURE_INT}) (?:.*?) ha(?:s|ve) the following attributes:$/) do |count, table|
+Then(/^one guideline has a the a "([^"]*)" attributes of "([^"]*)"$/) do |attr, expected_value|
+  data = MultiJson.load(last_response.body)["data"]
 
+  matched_item = data.select { |datum| datum["attributes"][attr] == expected_value }
+
+  expect(matched_item).to_not be_empty
+end
+
+Then(/(#{CAPTURE_INT}) (?:.*?) ha(?:s|ve) the following attributes:$/) do |count, table|
   expected_item = table.hashes.each_with_object({}) do |row, hash|
     name, value, type = row["attribute"], row["value"], row["type"]
-    hash[name.tr(" ", "_").camelize(:lower)] = value #.to_type(type.constantize)
+    hash[name.tr(" ", "_").camelize(:lower)] = value
   end
 
   data = MultiJson.load(last_response.body)["data"]
-  matched_items = data.select { |item| item["attributes"] == expected_item }
-  expect(matched_items.count).to eq(count)
+
+  expect(data["attributes"]).to eq expected_item
+
 end

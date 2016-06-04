@@ -5,7 +5,7 @@ module API
       def index
         guidelines = Guideline.all
 
-        paginate json: guidelines, each_serializer: GuidelineSerializer, per_page: 20
+        paginate json: guidelines, each_serializer: GuidelineSummarySerializer, per_page: 20
       end
 
       def show

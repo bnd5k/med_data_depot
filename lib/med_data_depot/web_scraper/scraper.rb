@@ -19,21 +19,18 @@ module MedDataDepot
 
           return title, content
 
-        rescue ::Net::OpenTimeout => e
-          web_scraping_events_model.create!(
-            event_type: web_scraping_events_model::EVENT_TYPES[:timeout],
-            url: url,
-          )
-
+        rescue Errno::EHOSTUNREACH => e
+          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:no_connection], url)
           return nil
-
+        rescue ::Net::OpenTimeout => e
+          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:timeout], url)
+          return nil
         end
       end
 
       private
 
       attr_reader :web_scraping_events_model
-
       def document_from_url(url)
         url_to_scrape = open(url)
         document = Nokogiri::HTML(url_to_scrape)
@@ -45,11 +42,7 @@ module MedDataDepot
         if found_title
           found_title.text
         else
-          web_scraping_events_model.create!(
-            event_type: web_scraping_events_model::EVENT_TYPES[:not_found],
-            url: url,
-            location: title_location
-          )
+          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:not_found], url, title_location)
           nil
         end
       end
@@ -61,13 +54,17 @@ module MedDataDepot
           raw_content = found_content.to_html
           stripped_content = raw_content.gsub(/>\s+</, "><")
         else
-          web_scraping_events_model.create!(
-            event_type: web_scraping_events_model::EVENT_TYPES[:failure],
-            url: url,
-            location: location
-          )
+          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:not_found], url, location)
           nil
         end
+      end
+
+      def document_scraping_issue(event_type, url, location=nil)
+        web_scraping_events_model.create!(
+          event_type: event_type,
+          url: url,
+          location: location
+        )
       end
 
     end

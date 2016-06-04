@@ -6,12 +6,18 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module MedDataDepot
   class Application < Rails::Application
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << Rails.root.join('lib')
+    config.after_initialize do
+      Rails.application.routes.default_url_options[:host] = ENV['HOST']
+    end
   end
 end

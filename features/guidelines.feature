@@ -5,31 +5,18 @@ Feature: Guidelines
 
   Scenario: User retrieves a list of guidelines
     Given the system contains the following guidelines:
-      | url                                                  |  title               | recommendation            |
-      | http://www.guideline.gov/content.aspx?f=rss&id=38490 | Smurfs are healthy   | <p> Eat More Smurf</p>    |
-      | http://www.guideline.gov/content.aspx?f=rss&id=38491 | Cats are healthy     | <p> Eat More cats</p>     |
-      | http://www.guideline.gov/content.aspx?f=rss&id=38492 | Unicorns are healthy | <p> Eat More unicorns</p> |
+      | title                |
+      | Smurfs are healthy   |
+      | Cats are healthy     |
+      | Unicorns are healthy |
 
     When the client requests a list of guidelines
     Then the response contains three guidelines
-    Then one guideline has the following attributes: 
-      | attribute 	    | type   | value  					                            |
-      | url	  	        | String | http://www.guideline.gov/content.aspx?f=rss&id=38490 |
-      | title	  	    | String | Smurfs are healthy   				                |
-      | recommendation	| String | <p> Eat More Smurf</p> 				                |
+    Then one guideline has a the a "title" attributes of "Smurfs are healthy" 
+    Then one guideline has a the a "title" attributes of "Cats are healthy" 
+    Then one guideline has a the a "title" attributes of "Unicorns are healthy" 
 
-    Then one guideline has the following attributes: 
-      | attribute 	| type   | value  					                                |
-      | url	  	| String | http://www.guideline.gov/content.aspx?f=rss&id=38491         |
-      | title	  	| String | Cats are healthy   				                        |
-      | recommendation	| String | <p> Eat More cats</p> 				                |
-
-    Then one guideline has the following attributes: 
-      | attribute 	    | type   | value  					                            |
-      | url	  	        | String | http://www.guideline.gov/content.aspx?f=rss&id=38492 |
-      | title	  	    | String | Unicorns are healthy   				                |
-      | recommendation	| String | <p> Eat More unicorns</p> 				            |
-
+  
   Scenario: User retrieves a guideline
     Given the system contains the following guidelines:
       | url                                                  |  title               | recommendation            |

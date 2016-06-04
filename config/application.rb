@@ -1,12 +1,11 @@
 require_relative 'boot'
 require 'rails/all'
-require 'dotenv'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv::Railtie.load
+Dotenv.load(File.expand_path("../../.env", __FILE__)) if File.exist?(File.expand_path("../../.env", __FILE__))
 
 module MedDataDepot
   class Application < Rails::Application

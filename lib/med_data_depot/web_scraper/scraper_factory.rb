@@ -5,16 +5,17 @@ require './app/models/web_scraping_event'
 module MedDataDepot
   module WebScraper
     module Factory
+      class << self
 
-      def self.scraper
-        MedDataDepot::WebScraper::Scraper.new(::WebScrapingEvent)
+        def scraper
+          MedDataDepot::WebScraper::Scraper.new(::WebScrapingEvent)
+        end
+
+        def mock_scraper
+          MedDataDepot::WebScraper::MockScraper.new
+        end
+
       end
-
-      def self.mock_scraper
-        MedDataDepot::WebScraper::MockScraper.new
-      end
-
     end
   end
 end
-

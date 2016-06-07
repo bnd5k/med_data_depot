@@ -20,10 +20,10 @@ module MedDataDepot
           return title, content
 
         rescue Errno::EHOSTUNREACH => e
-          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:no_connection], url)
+          document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:no_connection], url)
           return nil
         rescue ::Net::OpenTimeout => e
-          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:timeout], url)
+          document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:timeout], url)
           return nil
         end
       end

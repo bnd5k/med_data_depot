@@ -22,7 +22,7 @@ describe MedDataDepot::Constraints::APIVersion do
   end
 
   it 'uses a default version if version specified' do
-    req =  request("application/vnd.med-data-depot-v1+json")
+    req =  request("application/vnd.api+json")
     expect(subject.matches?(req)).to be_truthy
   end
 

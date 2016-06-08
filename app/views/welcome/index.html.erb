@@ -19,12 +19,15 @@
     </p>
 
     <p>
-    If you want to see a list of all guidelines, run the following command in your terminal.
+    If you want to see a list of all guidelines, run the command below.  This 
+    is a versioned API, however, if you don't specify a version, it will 
+    default to the version 1.  That means you're not required to specify a 
+    version at this point.
     </p>
 
 
     <div class="code">
-    curl https://med-data-depot.herokuapp.com/guidelines | python -m json.tool  
+    curl  -H "accept: application/vnd.api+json "https://med-data-depot.herokuapp.com/guidelines | python -m json.tool  
     </div>
 
     <p>
@@ -35,12 +38,9 @@
     </p>
 
     <div class="code">
-    curl https://med-data-depot.herokuapp.com/guidelines/7 | python -m json.tool  
+    curl  -H "accept: application/vnd.api+json" https://med-data-depot.herokuapp.com/guidelines/7 | python -m json.tool  
     </div>
 
-    <p>
-    If you're not a command line fan, then you can also paste the URLS into a new browser tab.
-    </p>
 
   </div>
   <!-- /container -->

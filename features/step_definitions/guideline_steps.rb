@@ -1,11 +1,9 @@
 ############# Helpers
 
 def validate_guideline_summary(data)
-  expect(data["url"]).to be_a_kind_of(String)
+  # expect(data["url"]).to be_a_kind_of(String)
   expect(data["title"]).to be_a_kind_of(String)
 end
-
-require 'pry'
 
 def validate_guideline(data)
   expect(data["url"]).to be_a_kind_of(String)

@@ -10,9 +10,7 @@ gem 'font-awesome-rails', '4.5.0.1'
 
 gem 'nokogiri', '1.6.7.2'
 
-gem "active_model_serializers", '0.10.0'
-gem 'kaminari', '0.17.0'
-gem 'api-pagination', '4.3.0'
+gem 'jsonapi-resources', github: 'cerebris/jsonapi-resources', branch: :master
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

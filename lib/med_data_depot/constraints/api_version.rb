@@ -18,12 +18,12 @@ module MedDataDepot
 
       def versioned_accept_header?(request)
         accept = request.headers['Accept']
-        accept && accept[/application\/vnd\.med-data-depot-v#{@version}\+json/]
+        accept && accept[/application\/vnd\.med-data-depot\+json; v=1/]
       end
 
       def unversioned_accept_header?(request)
         accept = request.headers['Accept']
-        accept.blank? || accept[/application\/vnd\.med-data-depot/].nil?
+        accept.blank? || accept[/application\/vnd\.med-data-depot\+json/].nil?
       end
 
       def version_one?(request)

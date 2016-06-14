@@ -5,7 +5,7 @@ describe MedDataDepot::Constraints::APIVersion do
 
   def request(accept_headers = '')
     headers = {
-      "Accept" =>  accept_headers
+      "Accept" => accept_headers
     }
     double(:request, headers: headers)
   end

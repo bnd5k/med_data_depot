@@ -2,7 +2,7 @@ module API
   module V1
     class GuidelineResource < JSONAPI::Resource
 
-      attributes :title, :url, :recommendation
+      attributes :title, :condition, :url, :recommendation
 
     end
   end

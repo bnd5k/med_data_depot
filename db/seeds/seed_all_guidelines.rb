@@ -23,7 +23,8 @@ class SeedAllGuidelines
   private
 
   def import_guideline(url)
-    guideline = Guideline.where(url: url).first_or_create!
+    guideline_url = url.gsub("f=rss", '')
+    guideline = Guideline.where(url: guideline_url).first_or_create!
 
     if guideline.recommendation.nil? && guideline.title.nil?
       MedDataDepot::Guideline.import_guideline.call(guideline.id)

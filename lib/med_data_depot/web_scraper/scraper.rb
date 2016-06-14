@@ -9,15 +9,18 @@ module MedDataDepot
         @web_scraping_events_model = web_scraping_events_model
       end
 
-      def search_for_title_and_content(url, title_location, content_location)
+      def search_for_title_and_content(url, title_location, condition_location, content_location)
         begin
           url_to_scrape = open(url)
           document = Nokogiri::HTML(url_to_scrape)
 
+
           title = find_title(url, title_location, document)
+          condition = find_condition(url, condition_location, document)
           content = find_content(url, content_location, document)
 
-          return title, content
+          result = {title: title, condition: condition, content: content }
+          return result
 
         rescue Errno::EHOSTUNREACH => e
           document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:no_connection], url)
@@ -31,9 +34,21 @@ module MedDataDepot
       private
 
       attr_reader :web_scraping_events_model
+
       def document_from_url(url)
         url_to_scrape = open(url)
         document = Nokogiri::HTML(url_to_scrape)
+      end
+
+      def find_condition(url, location, document)
+        found_condition = document.search(location).children
+
+        if found_condition
+          found_condition.text
+        else
+          document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:not_found], url, location)
+          nil
+        end
       end
 
       def find_title(url, title_location, document)
@@ -42,7 +57,7 @@ module MedDataDepot
         if found_title
           found_title.text
         else
-          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:not_found], url, title_location)
+          document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:not_found], url, title_location)
           nil
         end
       end
@@ -51,10 +66,12 @@ module MedDataDepot
         found_content = document.search(location)
 
         if !found_content.empty?
+
+          found_content.search("img").each { |src| src.remove } # remove images
           raw_content = found_content.to_html
-          stripped_content = raw_content.gsub(/>\s+</, "><")
+          stripped_content = raw_content.gsub(/>\s+</, "><") # remove whitespace b/w elements
         else
-          document_scraping_issue( web_scraping_events_model::EVENT_TYPES[:not_found], url, location)
+          document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:not_found], url, location)
           nil
         end
       end

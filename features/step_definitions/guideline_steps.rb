@@ -48,22 +48,17 @@ end
 ############ then
 
 Then(/^the guideline contains data for the recommendation$/) do
-  title, recommendation = MedDataDepot::Scraper.search_for_title_and_content(
-    @incomplete_guideline,
+  expected_results  = MedDataDepot::Scraper.search_for_title_and_content(
+    @incomplete_guideline.url,
     MedDataDepot::Guideline.import_guideline.class::GUIDELINE_TITLE_LOCATION,
+    MedDataDepot::Guideline.import_guideline.class::CONDITION_LOCATION,
     MedDataDepot::Guideline.import_guideline.class::RECOMMENDATION_LOCATION
   )
 
   @incomplete_guideline.reload
 
-  expect(@incomplete_guideline.title).to eq title
-  expect(@incomplete_guideline.recommendation).to eq recommendation
-
-  #fixme: speed up tests by just verifying we called expected method. e.g.
-  # expect(@incomplete_guideline).to receive(:update!).with(
-  #   guideline.update!(recommendation: recommendation)
-  # )
-
+  expect(@incomplete_guideline.title).to eq expected_results[:title]
+  expect(@incomplete_guideline.recommendation).to eq expected_results[:recommendation]
 end
 
 Then(/^the response contains (#{CAPTURE_INT}) (.*?)s?$/) do |count, type|

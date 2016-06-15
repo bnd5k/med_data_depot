@@ -16,7 +16,9 @@ class SeedSamplingOfGuidelines
 
       guideline = Guideline.where(url: guideline_url).first_or_create!
 
-      MedDataDepot::Guideline.import_guideline.call(guideline.id)
+      unless guideline.complete?
+        MedDataDepot::Guideline.import_guideline.call(guideline.id)
+      end
       #It's inefficient to create the record and then update it, but this
       #process mimics apps behavior, where the import would be done off cycle
 

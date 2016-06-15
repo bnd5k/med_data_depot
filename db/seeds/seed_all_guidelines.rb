@@ -26,7 +26,7 @@ class SeedAllGuidelines
     guideline_url = url.gsub("f=rss", '')
     guideline = Guideline.where(url: guideline_url).first_or_create!
 
-    if guideline.complete?
+    unless guideline.complete?
       MedDataDepot::Guideline.import_guideline.call(guideline.id)
     end
   end

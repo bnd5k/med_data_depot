@@ -1,7 +1,7 @@
 class Guideline < ApplicationRecord
   
   def complete?
-    text && title && condition
+    title && condition && recommendation
   end
 
 end

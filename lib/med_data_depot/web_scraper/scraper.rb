@@ -9,7 +9,7 @@ module MedDataDepot
         @web_scraping_events_model = web_scraping_events_model
       end
 
-      def search_for_title_and_content(url, title_location, condition_location, content_location)
+      def find_recommendation(url, title_location, condition_location, content_location)
         begin
           url_to_scrape = open(url)
           document = Nokogiri::HTML(url_to_scrape)
@@ -17,10 +17,9 @@ module MedDataDepot
 
           title = find_title(url, title_location, document)
           condition = find_condition(url, condition_location, document)
-          content = find_content(url, content_location, document)
+          recommendation = find_content(url, content_location, document)
 
-          result = {title: title, condition: condition, content: content }
-          return result
+          return  = { title: title, condition: condition, recommendation: recommendation }
 
         rescue Errno::EHOSTUNREACH => e
           document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:no_connection], url)

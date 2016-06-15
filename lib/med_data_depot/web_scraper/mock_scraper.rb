@@ -2,7 +2,7 @@ module MedDataDepot
   module WebScraper
     class MockScraper
 
-      def search_for_title_and_content(url, title_location, condition_location, content_location)
+      def find_recommendation(url, title_location, condition_location, content_location)
         title = "A.S.P.E.N. clinical guidelines: nutrition support of adult patients with hyperglycemia." 
         condition = "barfitis"
         content  = 

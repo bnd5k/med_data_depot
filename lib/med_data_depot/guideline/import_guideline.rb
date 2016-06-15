@@ -16,7 +16,7 @@ module MedDataDepot
       def call(guideline_id)
         guideline = guideline_model.find_by_id(guideline_id)
         if guideline
-          result = scraper.search_for_title_and_content(
+          result = scraper.find_recommendation(
             guideline.url,
             GUIDELINE_TITLE_LOCATION,
             CONDITION_LOCATION,

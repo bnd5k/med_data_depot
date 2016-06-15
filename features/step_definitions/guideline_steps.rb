@@ -48,7 +48,7 @@ end
 ############ then
 
 Then(/^the guideline contains data for the recommendation$/) do
-  expected_results  = MedDataDepot::Scraper.search_for_title_and_content(
+  expected_results  = MedDataDepot::Scraper.find_recommendation(
     @incomplete_guideline.url,
     MedDataDepot::Guideline.import_guideline.class::GUIDELINE_TITLE_LOCATION,
     MedDataDepot::Guideline.import_guideline.class::CONDITION_LOCATION,

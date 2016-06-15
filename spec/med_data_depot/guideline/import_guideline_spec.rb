@@ -19,7 +19,7 @@ describe MedDataDepot::Guideline::ImportGuideline do
   it 'fails gracefull when unable to scrape HTML file' do
     allow(guideline_model).to receive(:find_by_id).with(guideline_record.id).and_return(nil)
 
-    allow(scraper).to receive(:search_for_title_and_content).with(
+    allow(scraper).to receive(:find_recommendation).with(
       guideline_record.url,
       described_class::GUIDELINE_TITLE_LOCATION,
       described_class::CONDITION_LOCATION,
@@ -34,7 +34,7 @@ describe MedDataDepot::Guideline::ImportGuideline do
 
     scraping_result = { title: guideline_title, condition: condition, recommendation: recommendation_html }
 
-    allow(scraper).to receive(:search_for_title_and_content).with(
+    allow(scraper).to receive(:find_recommendation).with(
       guideline_record.url,
       described_class::GUIDELINE_TITLE_LOCATION,
       described_class::CONDITION_LOCATION,

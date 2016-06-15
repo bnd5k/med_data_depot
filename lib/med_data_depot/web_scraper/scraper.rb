@@ -19,7 +19,7 @@ module MedDataDepot
           condition = find_condition(url, condition_location, document)
           recommendation = find_content(url, content_location, document)
 
-          return  = { title: title, condition: condition, recommendation: recommendation }
+          return { title: title, condition: condition, recommendation: recommendation }
 
         rescue Errno::EHOSTUNREACH => e
           document_scraping_issue(web_scraping_events_model::EVENT_TYPES[:no_connection], url)

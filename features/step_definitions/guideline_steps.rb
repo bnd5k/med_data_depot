@@ -23,7 +23,8 @@ Given(/^the system contains the following guidelines:$/) do |table|
     Guideline.where(
       url: hsh["url"],
       title: hsh["title"],
-      recommendation: hsh["recommendation"]
+      recommendation: hsh["recommendation"],
+      condition: hsh["condition"]
     ).first_or_create
   end
 end
@@ -83,11 +84,10 @@ end
 Then(/(#{CAPTURE_INT}) (?:.*?) ha(?:s|ve) the following attributes:$/) do |count, table|
   expected_item = table.hashes.each_with_object({}) do |row, hash|
     name, value, type = row["attribute"], row["value"], row["type"]
-    hash[name.tr(" ", "_").camelize(:lower)] = value
+    hash[name.tr(" ", "_").camelize(:lower)] = value_to_type(value, type) 
   end
 
   data = MultiJson.load(last_response.body)["data"]
 
   expect(data["attributes"]).to eq expected_item
-
 end

@@ -16,20 +16,20 @@ Feature: Guidelines
     Then one guideline has a the a "title" attributes of "Cats are healthy" 
     Then one guideline has a the a "title" attributes of "Unicorns are healthy" 
 
-  
   Scenario: User retrieves a guideline
     Given the system contains the following guidelines:
-      | url                                                  |  title               | recommendation            |
-      | http://www.guideline.gov/content.aspx?f=rss&id=38490 | Smurfs are healthy   | <p> Eat More Smurf</p>    |
+      | url                                                  |  title       | recommendation     | condition |
+      | http://www.guideline.gov/content.aspx?f=rss&id=38490 | Smurf health | <p> Eat Smurf </p> | Smurfitis |
     When the client requestes the guideline containing the URL "http://www.guideline.gov/content.aspx?f=rss&id=38490" 
     Then the response contains one guideline
     Then one guideline has the following attributes: 
-      | attribute 	    | type   | value  					                            |
-      | url	  	        | String | http://www.guideline.gov/content.aspx?f=rss&id=38490 |
-      | title	  	    | String | Smurfs are healthy   				                |
-      | recommendation	| String | <p> Eat More Smurf</p>				                |
-
-
+      | attribute 	    | type        | value  					                              |
+      | url	  	        | String      | http://www.guideline.gov/content.aspx?f=rss&id=38490  |
+      | title	  	    | String      | Smurf health 		            		              |
+      | recommendation	| String      | <p> Eat Smurf </p>			      	                  |
+      | condition	  	| String      | Smurfitis 				                              |
+      | popular	        | FalseClass  | false 			                                      |
+ 
   Scenario: Importing a guideline
     Given an incomplete guideline
     When I import the recommendation

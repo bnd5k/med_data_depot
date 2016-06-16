@@ -27,3 +27,18 @@ end
 def get_single_resource(resource, id)
   get("/#{resource.pluralize.downcase.tr(' ', '-')}/#{id}")
 end
+
+def value_to_type(input, expected_type)
+  case 
+  when expected_type.constantize == String
+    input.to_s
+  when expected_type.constantize == FalseClass
+    value_to_boolean(input)
+  when expected_type.constantize == TrueClass
+    value_to_boolean(input)
+  end
+end
+
+def value_to_boolean(input)
+  (input =~ /true/i) == 0 ? true : false
+end

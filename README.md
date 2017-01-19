@@ -39,7 +39,7 @@ with MedDataDepot in their browser.
 Once you've go the server running, you can hit the endpoint like this, via command line.
 
 ```
-curl -H "accept: application/vnd.api+json" -H "X-API-Version: 1" http://localhost:3000/guidelines | python -m json.tool  
+curl -H "accept: application/vnd.api+json" -H "X-API-Version: 1" http://localhost:3000/api/v1/guidelines | python -m json.tool  
 ```
 
 If you don't specify a version in the header (which is fine since there're 
@@ -47,7 +47,7 @@ currently only one version), the app  will default v1 of the API. So the
 following command will also work.
 
 ```
-curl -H "accept: application/vnd.api+json" http://localhost:3000/guidelines | python -m json.tool
+curl -H "accept: application/vnd.api+json" http://localhost:3000/api/v1/guidelines | python -m json.tool
 ```
 
 You can obtain the guidelines for popular conditionons using a filter.  The 
@@ -55,7 +55,7 @@ JSONApi spec requires brackets for filters, so when cURLing an endpoint, remembe
 the "-g" flag to turn off URL globbing parser.
 
 ```
-curl -g  -H "accept: application/vnd.api+json" -H "X-API-Version: 1" http://localhost:3000/guidelines?filter[popular]=true | python -m json.tool  
+curl -g  -H "accept: application/vnd.api+json" -H "X-API-Version: 1" http://localhost:3000/api/v1/guidelines?filter[popular]=true | python -m json.tool  
 ```
 
 
